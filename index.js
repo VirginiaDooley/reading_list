@@ -28,7 +28,8 @@ prompt.get(['book_title'], function (err, result) {
 
     books.search(result.book_title, options, function(error, results) {
         if ( ! error ) {
-          results.map(book => {
+          results.map((book, index) => {
+            console.log(index + 1 + ":")
             console.log('Title: ' + book.title)
             console.log('Author(s): ' + book.authors)
             console.log('Publisher: ' + book.publisher)
