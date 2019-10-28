@@ -6,4 +6,4 @@ To install from your terminal:
 
 Navigate to the repo on your machine, and install the dependencies from package.json | cd reading_list => npm install => node server.js
 
-This application was created with Node.js, Express, React and the Spotify API
+This application was created with Node.js and the Spotify API
