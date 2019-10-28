@@ -42,12 +42,16 @@ prompt.get(['book_search'], async function (err, result) {
           if (err) { return onErr(err); }
           console.log('  I want to add book #' + result.index + ' to my reading list');
           const index = result.index
-
-          addBooks(index)
+          if (index <= 5) {
+            addBooks(index)
+          } else {
+            console.log('Please choose 1-5')
+            // return to addBooks
+          }
         })
 
         const addBooks = (index) => {
-          let book_index = parseInt(index)
+          let book_index = parseInt(index) - 1
           let chosen_book = books[book_index]
           reading_list.push(chosen_book)
           let bookshelf = reading_list.map(book => book.title)
@@ -69,3 +73,7 @@ prompt.get(['book_search'], async function (err, result) {
     res.status(500).send("something went bad");
   }
 })
+
+// create a list of conditionals to guide the menu
+// would you like to search, press 1, etc...
+// or switch case https://stackoverflow.com/questions/24464404/how-to-readline-infinitely-in-node-js
