@@ -74,6 +74,16 @@ prompt.get(['book_search'], async function (err, result) {
   }
 })
 
+const printList = () => {
+  if (reading_list.length > 0) {
+    console.log(reading_list.map(book => book.title))
+  } else {
+    console.log("Your reading list is currently empty. Search and select books to add.")
+    // function to start search
+  }
+
+}
+
 // create a list of conditionals to guide the menu
 // would you like to search, press 1, etc...
 // or switch case https://stackoverflow.com/questions/24464404/how-to-readline-infinitely-in-node-js
