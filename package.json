@@ -21,6 +21,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "google-books-search": "^0.3.1",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prompt": "^1.0.0"
   }
 }
