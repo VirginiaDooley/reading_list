@@ -19,7 +19,7 @@ menu()
 function menu(){
   prompt.start(
     //add option to exit
-    console.log("Welcome to Reading List. Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
+    console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
   )
   prompt.get(['choice'], async function (req, res) {
     if (res.choice === 'search'){
@@ -28,13 +28,16 @@ function menu(){
       printList()
     } else {
       console.log("Please try again.")
+      menu()
     }
   })
 }
+//end of menu function
 
 //start of search function
 function search(){
 
+//limit results to 5 books
   var options = {
    offset: 0,
    limit: 5,
@@ -42,6 +45,7 @@ function search(){
    order: 'relevance',
    lang: 'en'
  }
+
 //ask for user input for book search
   prompt.get(['book_search'], async function (err, result) {
     if (err) { return onErr(err); }
@@ -102,6 +106,7 @@ function search(){
   //   res.status(500).send("something went bad");
   // }
 }
+//end search function
 
 const printList = () => {
   if (reading_list.length > 0) {
