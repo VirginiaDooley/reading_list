@@ -51,17 +51,17 @@ async function search(){
   //ask for user input for book search
     prompt.get(['book_search'], async function (req, res) {
       console.log('  I want to search for: ' + result.book_search)
-    })
 
-  //search books
-    await books.search(result.book_search, options, async function(req, res) {
-      const books = results
-      books.map((book, index) => {
-        console.log(index + 1 + ":")
-        console.log('Title: ' + book.title)
-        console.log('Author(s): ' + book.authors)
-        console.log('Publisher: ' + book.publisher)
-        console.log('Choose a book number 1-5 to add it to your reading list')
+      //search books
+      await books.search(result.book_search, options, async function(req, res) {
+        const books = results
+        books.map((book, index) => {
+          console.log(index + 1 + ":")
+          console.log('Title: ' + book.title)
+          console.log('Author(s): ' + book.authors)
+          console.log('Publisher: ' + book.publisher)
+          console.log('Choose a book number 1-5 to add it to your reading list')
+        })
       })
     })
     // end of try
@@ -69,7 +69,6 @@ async function search(){
     console.error(err.message)
   }
 }
-
 //end search function
 
 function chooseBook(){
@@ -102,7 +101,7 @@ function addBooks(index){
   menu()
 }
 
-const printList = () => {
+function printList(){
   if (reading_list.length > 0) {
     console.log(reading_list.map(book => book.title))
   } else {
