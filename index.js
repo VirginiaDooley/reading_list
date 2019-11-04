@@ -78,19 +78,9 @@ function search(){
             // return to menu choices to add another book or search again
           } else {
             console.log('Please choose 1-5')
-          addBooks()
+          addBooks(index)
           }
         })
-
-        const addBooks = (index) => {
-          let book_index = parseInt(index) - 1
-          let chosen_book = books[book_index]
-          reading_list.push(chosen_book)
-          let bookshelf = reading_list.map(book => book.title)
-          // reading_list.push(bookshelf)
-
-          // add menu with prompts to search again and print reading list again
-        }
 
       } else {
         console.log(error);
@@ -107,6 +97,16 @@ function search(){
   // }
 }
 //end search function
+
+function addBooks(index){
+  const book_index = parseInt(index) - 1
+  const chosen_book = books[book_index]
+  reading_list.push(chosen_book)
+  // const bookshelf = reading_list.map(book => book.title)
+  return reading_list
+  // reading_list.push(bookshelf)
+  menu()
+}
 
 const printList = () => {
   if (reading_list.length > 0) {
