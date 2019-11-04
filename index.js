@@ -96,7 +96,10 @@ function addBooks(index){
 
 function printList(){
   if (reading_list.length > 0) {
-    console.log(reading_list.map(book => book.title))
+    reading_list.map((book, index) => {
+      console.log(index + 1 + ": " + "Title: " + book.title)
+    })
+    menu()
   } else {
     console.log("Your reading list is currently empty. Search and select books to add.")
     search()
