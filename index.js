@@ -14,7 +14,7 @@ server.listen()
 module.exports = server;
 
 prompt.start(
-  console.log("Welcome to Reading List. Enter 1 to search books; 2 to print your current list.")
+  console.log("Welcome.")
 )
 
 search()
