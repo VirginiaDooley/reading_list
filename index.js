@@ -13,11 +13,24 @@ server.use(bodyParser.json());
 server.listen()
 module.exports = server;
 
-prompt.start(
-  console.log("Welcome.")
-)
+menu()
 
-search()
+//start of menu function
+function menu(){
+  prompt.start(
+    //add option to exit
+    console.log("Welcome to Reading List. Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
+  )
+  prompt.get(['choice'], async function (req, res) {
+    if (res.choice === 'search'){
+      search()
+    } else if (res.choice === 'print') {
+      printList()
+    } else {
+      console.log("Please try again.")
+    }
+  })
+}
 
 //start of search function
 function search(){
@@ -70,7 +83,6 @@ function search(){
           let chosen_book = books[book_index]
           reading_list.push(chosen_book)
           let bookshelf = reading_list.map(book => book.title)
-          console.log("Your reading list currently includes: " + bookshelf)
           // reading_list.push(bookshelf)
 
           // add menu with prompts to search again and print reading list again
@@ -96,6 +108,6 @@ const printList = () => {
     console.log(reading_list.map(book => book.title))
   } else {
     console.log("Your reading list is currently empty. Search and select books to add.")
-    // function to start search
+    search()
   }
 }
