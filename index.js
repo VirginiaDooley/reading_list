@@ -47,56 +47,53 @@ function search(){
  }
 
 //ask for user input for book search
-  prompt.get(['book_search'], async function (err, result) {
-    if (err) { return onErr(err); }
-      console.log('  I want to search for: ' + result.book_search)
+  prompt.get(['book_search'], async function (req, res) {
+    console.log('  I want to search for: ' + result.book_search)
 
 //search books
-  books.search(result.book_search, options, async function(error, results) {
-
-      if ( ! error ) {
-        const books = results
-        books.map((book, index) => {
-          console.log(index + 1 + ":")
-          console.log('Title: ' + book.title)
-          console.log('Author(s): ' + book.authors)
-          console.log('Publisher: ' + book.publisher)
-          console.log('Choose a book number 1-5 to add it to your reading list')
-        })
-
-        const chooseBook = await prompt.get(['index'], async function (err, result) {
-          if (err) { return onErr(err); }
-          // const book = books.find(book => book.id === parseInt(req.params.id))
-          // if (!book) res.status.(404).send('The book was not found') //404
-          // res.send(book)
-          const index = result.index
-          if (index === 'exit') {
-            console.log('goodbye!');
-            // exit!
-          } else if (index <= 5) {
-            addBooks(index)
-            // return to menu choices to add another book or search again
-          } else {
-            console.log('Please choose 1-5')
-          addBooks(index)
-          }
-        })
-
-      } else {
-        console.log(error);
-      }
+    books.search(result.book_search, options, async function(req, res) {
+      const books = results
+      books.map((book, index) => {
+        console.log(index + 1 + ":")
+        console.log('Title: ' + book.title)
+        console.log('Author(s): ' + book.authors)
+        console.log('Publisher: ' + book.publisher)
+        console.log('Choose a book number 1-5 to add it to your reading list')
+      })
     })
-    function onErr(err) {
-      console.log(err);
-      return 1;
-    }
-  })
-  // catch (err) {
-  //   console.log(err);
-  //   res.status(500).send("something went bad");
-  // }
-}
 //end search function
+
+const chooseBook = await prompt.get(['index'], async function (err, result) {
+  // const book = books.find(book => book.id === parseInt(req.params.id))
+  // if (!book) res.status.(404).send('The book was not found') //404
+  // res.send(book)
+  const index = result.index
+  if (index === 'exit') {
+    console.log('goodbye!');
+    // exit!
+  } else if (index <= 5) {
+    addBooks(index)
+    // return to menu choices to add another book or search again
+  } else {
+    console.log('Please choose 1-5')
+  addBooks(index)
+  }
+})
+
+} else {
+console.log(error);
+}
+})
+function onErr(err) {
+console.log(err);
+return 1;
+}
+})
+// catch (err) {
+//   console.log(err);
+//   res.status(500).send("something went bad");
+// }
+}
 
 function addBooks(index){
   const book_index = parseInt(index) - 1
