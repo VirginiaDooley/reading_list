@@ -73,16 +73,12 @@ async function search(){
 
 function chooseBook(){
   prompt.get(['index'], async function (req, res) {
-  // const book = books.find(book => book.id === parseInt(req.params.id))
-  // if (!book) res.status.(404).send('The book was not found') //404
-  // res.send(book)
   const index = result.index
     if (index === 'exit') {
       console.log('goodbye!');
       // exit!
     } else if (index <= 5) {
       addBooks(index)
-      // return to menu choices to add another book or search again
     } else {
       console.log('Please choose 1-5')
     addBooks(index)
@@ -90,14 +86,11 @@ function chooseBook(){
   })
 }
 
-
 function addBooks(index){
   const book_index = parseInt(index) - 1
   const chosen_book = books[book_index]
   reading_list.push(chosen_book)
-  // const bookshelf = reading_list.map(book => book.title)
   return reading_list
-  // reading_list.push(bookshelf)
   menu()
 }
 
