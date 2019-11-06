@@ -50,17 +50,17 @@ async function search(){
 
   //ask for user input for book search
     prompt.get(['book_search'], async function (req, res) {
-      console.log('  I want to search for: ' + result.book_search)
+      console.log('  I want to search for: ' + res.book_search)
 
       //search books
-      await books.search(result.book_search, options, async function(req, res) {
-        const books = results
+      await books.search(res.book_search, options, async function(req, res) {
+        const books = res
         books.map((book, index) => {
           console.log(index + 1 + ":")
           console.log('Title: ' + book.title)
           console.log('Author(s): ' + book.authors)
           console.log('Publisher: ' + book.publisher)
-          console.log('Choose a book number 1-5 to add it to your reading list')
+          // console.log('Choose a book number 1-5 to add it to your reading list')
         })
       })
     })
@@ -72,19 +72,21 @@ async function search(){
 //end search function
 
 function chooseBook(){
+  //set timeout here?
   prompt.get(['index'], async function (req, res) {
-  const index = result.index
-    if (index === 'exit') {
-      console.log('goodbye!');
-      // exit!
-    } else if (index <= 5) {
-      addBooks(index)
-    } else {
-      console.log('Please choose 1-5')
-    addBooks(index)
-    }
+    const index = res.index
+      if (index === 'exit') {
+        console.log('goodbye!');
+        // exit!
+      } else if (index <= 5) {
+        addBooks(index)
+      } else {
+        console.log('Please choose 1-5')
+        addBooks(index)
+      }
   })
 }
+
 
 function addBooks(index){
   const book_index = parseInt(index) - 1
