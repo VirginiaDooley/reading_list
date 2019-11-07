@@ -60,8 +60,26 @@ async function search(){
           console.log('Title: ' + book.title)
           console.log('Author(s): ' + book.authors)
           console.log('Publisher: ' + book.publisher)
-          // console.log('Choose a book number 1-5 to add it to your reading list')
         })
+        //ask for user input on book choice
+      await prompt.get(['index'], async function (req, res) {
+        const index = res.index
+        let choice = parseInt(index)
+        console.log("You entered: " + res.index)
+          if (index < 6) {
+            let choice = books[index - 1]
+            reading_list.push(choice)
+            printList()
+            menu()
+          } else if (res.index === 'exit') {
+            console.log('goodbye!');
+            // exit!
+          } else {
+            console.log('Please choose 1-5')
+            // rerun prompt
+          }
+      })
+      //end user choice
       })
     })
     // end of try
@@ -71,35 +89,11 @@ async function search(){
 }
 //end search function
 
-function chooseBook(){
-  //set timeout here?
-  prompt.get(['index'], async function (req, res) {
-    const index = res.index
-      if (index === 'exit') {
-        console.log('goodbye!');
-        // exit!
-      } else if (index <= 5) {
-        addBooks(index)
-      } else {
-        console.log('Please choose 1-5')
-        addBooks(index)
-      }
-  })
-}
-
-
-function addBooks(index){
-  const book_index = parseInt(index) - 1
-  const chosen_book = books[book_index]
-  reading_list.push(chosen_book)
-  return reading_list
-  menu()
-}
-
 function printList(){
   if (reading_list.length > 0) {
     reading_list.map((book, index) => {
-      console.log(index + 1 + ": " + "Title: " + book.title)
+      console.log("Your reading list currently includes: " + 
+      index + 1 + ": " + "Title: " + book.title)
     })
     menu()
   } else {
