@@ -19,4 +19,8 @@ Start the server
 
 ```node index.js```
 
+To run tests
+
+```jest```
+
 This application was created with Node.js and the Google Books API
