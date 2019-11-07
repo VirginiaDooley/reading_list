@@ -66,14 +66,14 @@ async function search(){
         const index = res.index
         let choice = parseInt(index)
         console.log("You entered: " + res.index)
-          if (index < 6) {
+          if (index <= 5) {
             let choice = books[index - 1]
             reading_list.push(choice)
             printList()
             menu()
           } else if (res.index === 'exit') {
             console.log('goodbye!');
-            // exit!
+            process.exit()
           } else {
             console.log('Please choose 1-5')
             // rerun prompt
