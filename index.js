@@ -10,7 +10,7 @@ server.use(bodyParser.json());
 server.listen();
 module.exports = server;
 
-const readingList = [];
+var readingList = [];
 
 menu();
 
@@ -20,10 +20,10 @@ function menu(){
     //add option to exit
     console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
   );
-  prompt.get(['choice'], async function (req, res) {
-    if (res.choice === 'search'){
+  prompt.get(['answer'], async function (req, res) {
+    if (res.answer === 'search'){
       search();
-    } else if (res.choice === 'print') {
+    } else if (res.answer === 'print') {
       printList();
     } else {
       console.log("Please try again.");
@@ -53,7 +53,7 @@ async function search(){
 
       //search books
       await books.search(res.bookSearch, options, async function(req, res) {
-        const books = res;
+        var books = res;
         books.map((book, index) => {
           console.log(index + 1 + ":");
           console.log('Title: ' + book.title);
@@ -62,12 +62,12 @@ async function search(){
         });
         //ask for user input on book choice
       await prompt.get(['index'], async function (req, res) {
-        const index = res.index;
-        let choice = parseInt(index);
+        var index = res.index;
+        var int = parseInt(index);
         console.log("You entered: " + res.index);
           if (index <= 5) {
-            let choice = books[index - 1];
-            readingList.push(choice);
+            var id = books[index - 1];
+            readingList.push(id);
             printList();
             menu();
           } else if (res.index === 'exit') {
