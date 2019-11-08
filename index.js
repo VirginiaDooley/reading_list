@@ -1,36 +1,36 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const books = require('google-books-search');
-const prompt = require('prompt');
-const nodemon = require('nodemon')
-const server = express();
-const port = process.env.PORT || 5000;
+var express = require('express');
+var bodyParser = require('body-parser');
+var books = require('google-books-search');
+var prompt = require('prompt');
+var nodemon = require('nodemon');
+var server = express();
+var port = process.env.PORT || 5000;
 
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-server.listen()
+server.listen();
 module.exports = server;
 
-const readingList = []
+const readingList = [];
 
-menu()
+menu();
 
 //start of menu function
 function menu(){
   prompt.start(
     //add option to exit
     console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
-  )
+  );
   prompt.get(['choice'], async function (req, res) {
     if (res.choice === 'search'){
-      search()
+      search();
     } else if (res.choice === 'print') {
-      printList()
+      printList();
     } else {
-      console.log("Please try again.")
-      menu()
+      console.log("Please try again.");
+      menu();
     }
-  })
+  });
 }
 //end of menu function
 
@@ -46,20 +46,20 @@ async function search(){
      type: 'books',
      order: 'relevance',
      lang: 'en'
-   }
+    };
 
   //ask for user input for book search
     prompt.get(['bookSearch'], async function (req, res) {
-      console.log('  I want to search for: ' + res.bookSearch)
+      console.log('  I want to search for: ' + res.bookSearch);
 
       //search books
       await books.search(res.bookSearch, options, async function(req, res) {
-        const books = res
+        const books = res;
         books.map((book, index) => {
-          console.log(index + 1 + ":")
-          console.log('Title: ' + book.title)
-          console.log('Author(s): ' + book.authors)
-          console.log('Publisher: ' + book.publisher)
+          console.log(index + 1 + ":");
+          console.log('Title: ' + book.title);
+          console.log('Author(s): ' + book.authors);
+          console.log('Publisher: ' + book.publisher);
         })
         //ask for user input on book choice
       await prompt.get(['index'], async function (req, res) {
