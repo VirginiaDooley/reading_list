@@ -1,9 +1,9 @@
 const express = require('express');
-const server = express();
 const bodyParser = require('body-parser');
 const books = require('google-books-search');
 const prompt = require('prompt');
 const nodemon = require('nodemon')
+const server = express();
 const port = process.env.PORT || 5000;
 
 const reading_list = []
