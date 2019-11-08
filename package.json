@@ -27,5 +27,10 @@
     "jest-each": "^24.9.0",
     "nodemon": "^1.19.4",
     "prompt": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0"
   }
 }
