@@ -6,12 +6,12 @@ const nodemon = require('nodemon')
 const server = express();
 const port = process.env.PORT || 5000;
 
-const readingList = []
-
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.listen()
 module.exports = server;
+
+const readingList = []
 
 menu()
 
