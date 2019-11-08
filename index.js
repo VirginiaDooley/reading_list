@@ -4,7 +4,6 @@ var books = require('google-books-search');
 var prompt = require('prompt');
 var nodemon = require('nodemon');
 var server = express();
-var port = process.env.PORT || 5000;
 
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
@@ -60,31 +59,31 @@ async function search(){
           console.log('Title: ' + book.title);
           console.log('Author(s): ' + book.authors);
           console.log('Publisher: ' + book.publisher);
-        })
+        });
         //ask for user input on book choice
       await prompt.get(['index'], async function (req, res) {
-        const index = res.index
-        let choice = parseInt(index)
-        console.log("You entered: " + res.index)
+        const index = res.index;
+        let choice = parseInt(index);
+        console.log("You entered: " + res.index);
           if (index <= 5) {
-            let choice = books[index - 1]
-            readingList.push(choice)
-            printList()
-            menu()
+            let choice = books[index - 1];
+            readingList.push(choice);
+            printList();
+            menu();
           } else if (res.index === 'exit') {
             console.log('goodbye!');
-            process.exit()
+            process.exit();
           } else {
-            console.log('Please choose 1-5')
+            console.log('Please choose 1-5');
             // rerun prompt
           }
-      })
+      });
       //end user choice
-      })
-    })
+      });
+    });
     // end of try
   } catch (err) {
-    console.error(err.message)
+    console.error(err.message);
   }
 }
 //end search function
@@ -93,11 +92,11 @@ function printList(){
   if (readingList.length > 0) {
     readingList.map((book, index) => {
       console.log("Your reading list currently includes: " + 
-      index + 1 + ": " + "Title: " + book.title)
-    })
-    menu()
+      index + 1 + ": " + "Title: " + book.title);
+    });
+    menu();
   } else {
-    console.log("Your reading list is currently empty. Search and select books to add.")
-    search()
+    console.log("Your reading list is currently empty. Search and select books to add.");
+    search();
   }
 }
