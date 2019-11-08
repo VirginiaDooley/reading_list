@@ -6,7 +6,7 @@ const nodemon = require('nodemon')
 const server = express();
 const port = process.env.PORT || 5000;
 
-const reading_list = []
+const readingList = []
 
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
@@ -49,11 +49,11 @@ async function search(){
    }
 
   //ask for user input for book search
-    prompt.get(['book_search'], async function (req, res) {
-      console.log('  I want to search for: ' + res.book_search)
+    prompt.get(['bookSearch'], async function (req, res) {
+      console.log('  I want to search for: ' + res.bookSearch)
 
       //search books
-      await books.search(res.book_search, options, async function(req, res) {
+      await books.search(res.bookSearch, options, async function(req, res) {
         const books = res
         books.map((book, index) => {
           console.log(index + 1 + ":")
@@ -68,7 +68,7 @@ async function search(){
         console.log("You entered: " + res.index)
           if (index <= 5) {
             let choice = books[index - 1]
-            reading_list.push(choice)
+            readingList.push(choice)
             printList()
             menu()
           } else if (res.index === 'exit') {
@@ -90,8 +90,8 @@ async function search(){
 //end search function
 
 function printList(){
-  if (reading_list.length > 0) {
-    reading_list.map((book, index) => {
+  if (readingList.length > 0) {
+    readingList.map((book, index) => {
       console.log("Your reading list currently includes: " + 
       index + 1 + ": " + "Title: " + book.title)
     })
