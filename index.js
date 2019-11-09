@@ -14,10 +14,9 @@ var readingList = [];
 
 menu();
 
-//start of menu function
+
 function menu(){
   prompt.start(
-    //add option to exit
     console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
   );
   prompt.get(['answer'], async function (req, res) {
@@ -31,14 +30,11 @@ function menu(){
     }
   });
 }
-//end of menu function
 
-//start of search function
 async function search(){
 
   try {
 
-//limit results to 5 books
     var options = {
      offset: 0,
      limit: 5,
@@ -47,11 +43,9 @@ async function search(){
      lang: 'en'
     };
 
-  //ask for user input for book search
     prompt.get(['bookSearch'], async function (req, res) {
       console.log('  I want to search for: ' + res.bookSearch);
 
-      //search books
       await books.search(res.bookSearch, options, async function(req, res) {
         var books = res;
         books.map((book, index) => {
@@ -60,7 +54,7 @@ async function search(){
           console.log('Author(s): ' + book.authors);
           console.log('Publisher: ' + book.publisher);
         });
-        //ask for user input on book choice
+      
       await prompt.get(['index'], async function (req, res) {
         var index = res.index;
         var int = parseInt(index);
@@ -78,15 +72,12 @@ async function search(){
             // rerun prompt
           }
       });
-      //end user choice
       });
     });
-    // end of try
   } catch (err) {
     console.error(err.message);
   }
 }
-//end search function
 
 function printList(){
   if (readingList.length > 0) {
