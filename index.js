@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var books = require('google-books-search');
+var googleBooks = require('google-books-search');
 var prompt = require('prompt');
 var nodemon = require('nodemon');
 var server = express();
