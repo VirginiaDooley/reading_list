@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var googleBooks = require('google-books-search');
+var books = require('google-books-search');
 var prompt = require('prompt');
 var nodemon = require('nodemon');
 var server = express();
@@ -8,7 +8,7 @@ var server = express();
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.listen();
-module.exports = server;
+module.exports = index;
 
 var readingList = [];
 
@@ -74,10 +74,12 @@ async function search(){
       });
       });
     });
+
   } catch (err) {
     console.error(err.message);
   }
 }
+
 
 function printList(){
   if (readingList.length > 0) {
