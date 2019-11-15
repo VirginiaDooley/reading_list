@@ -8,18 +8,18 @@ var server = express();
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.listen();
-module.exports = index;
+module.exports = server;
 
-var readingList = [];
+const readingList = [];
 
 menu();
 
-
 function menu(){
+  
   prompt.start(
     console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
   );
-  prompt.get(['answer'], async function (req, res) {
+  prompt.get(['answer'], async function (error, res) {
     if (res.answer === 'search'){
       search();
     } else if (res.answer === 'print') {
@@ -43,49 +43,75 @@ async function search(){
      lang: 'en'
     };
 
-    prompt.get(['bookSearch'], async function (req, res) {
-      console.log('  I want to search for: ' + res.bookSearch);
+    prompt.get(['bookSearch'], async function (err, res) {
+      console.log('I want to search for: ' + res.bookSearch);
+    
+      const results = await books.search(res.bookSearch, options, function(error, results) {
+        if ( ! error ) {
+          results.map((book, index) => {
+            console.log(index + 1 + ":");
+            console.log('Title: ' + book.title);
+            console.log('Author(s): ' + book.authors);
+            console.log('Publisher: ' + book.publisher);
+          });
+          
+          prompt.get(['index'], async function (error, res) {
 
-      await books.search(res.bookSearch, options, async function(req, res) {
-        var books = res;
-        books.map((book, index) => {
-          console.log(index + 1 + ":");
-          console.log('Title: ' + book.title);
-          console.log('Author(s): ' + book.authors);
-          console.log('Publisher: ' + book.publisher);
-        });
-      
-      await prompt.get(['index'], async function (req, res) {
-        var index = res.index;
-        var int = parseInt(index);
-        console.log("You entered: " + res.index);
-          if (index <= 5) {
-            var id = books[index - 1];
-            readingList.push(id);
-            printList();
-            menu();
-          } else if (res.index === 'exit') {
-            console.log('goodbye!');
-            process.exit();
-          } else {
-            console.log('Please choose 1-5');
-            // rerun prompt
-          }
-      });
+            var int = parseInt(res.index);
+          
+            console.log("You entered: " + int);
+              if (int <= 5) {
+                const chosenBook = await results[int]
+                readingList.push(chosenBook);
+                printList();
+              } else if (res.index === 'exit') {
+                console.log('goodbye!');
+                process.exit();
+              } else {
+                console.log('Please choose 1-5');
+                // choose()
+                ['index']
+              }
+            });
+
+        } else {
+            console.log(error);
+        }
       });
     });
-
+    
   } catch (err) {
     console.error(err.message);
   }
 }
+      
+// async function choose(){
+      
+//   prompt.get(['index'], async function (error, res) {
 
+//   var int = parseInt(res.index);
 
-function printList(){
+//   console.log("You entered: " + int);
+//     if (int <= 5) {
+//       const chosenBook = await search()
+//       readingList.push(chosenBook);
+//       printList();
+//     } else if (res.index === 'exit') {
+//       console.log('goodbye!');
+//       process.exit();
+//     } else {
+//       console.log('Please choose 1-5');
+//       choose()
+//     }
+//   });
+// }
+
+const printList = () => {
   if (readingList.length > 0) {
+    console.log("Your reading list currently includes: ");
     readingList.map((book, index) => {
-      console.log("Your reading list currently includes: " + 
-      index + 1 + ": " + "Title: " + book.title);
+      console.log(index + 1 + ". " + "Title: " + book.title);
+
     });
     menu();
   } else {
