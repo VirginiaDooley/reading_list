@@ -12,9 +12,7 @@ module.exports = server;
 
 const readingList = [];
 
-menu();
-
-function menu(){
+const menu = () => {
   
   prompt.start(
     console.log("Enter 'search' to search and add books to your reading list; Enter 'print' to print your reading list.")
@@ -29,7 +27,7 @@ function menu(){
       menu();
     }
   });
-}
+};
 
 async function search(){
 
@@ -61,7 +59,7 @@ async function search(){
           
             console.log("You entered: " + int);
               if (int <= 5) {
-                const chosenBook = await results[int]
+                const chosenBook = await results[int];
                 readingList.push(chosenBook);
                 printList();
               } else if (res.index === 'exit') {
@@ -70,7 +68,6 @@ async function search(){
               } else {
                 console.log('Please choose 1-5');
                 // choose()
-                ['index']
               }
             });
 
@@ -118,4 +115,6 @@ const printList = () => {
     console.log("Your reading list is currently empty. Search and select books to add.");
     search();
   }
-}
+};
+
+menu();
